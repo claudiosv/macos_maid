@@ -95,6 +95,7 @@ tag VERSION: production docs
 
     git add .
     git commit -s -m "Version $VERSION"
+    git push origin
 
     echo "Force-tagging and pushing $VERSION..."
 
