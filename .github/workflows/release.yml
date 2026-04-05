@@ -1,0 +1,35 @@
+---
+name: Production Build & Release
+on:
+  # Triggers the workflow when a version tag is pushed (e.g., git tag v1.0.0 && git push origin v1.0.0)
+  push:
+    tags:
+      - v*
+  # Allows you to trigger the workflow manually from the GitHub Actions tab
+  workflow_dispatch:
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    # Required permission to create a release in the repository
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3' # Bashly requires Ruby
+      - name: Install Bashly
+        run: gem install bashly
+      - name: Set up Just
+        uses: extractions/setup-just@v2
+      - name: Build production script
+        run: just production
+      - name: Create Release and Upload Asset
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: maid.sh
+          generate_release_notes: true

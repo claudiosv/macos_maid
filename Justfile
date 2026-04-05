@@ -71,3 +71,7 @@ dev-tools:
     brew install uv yamlfmt shellcheck rumdl shfmt bash-completion
     uv tool install yamllint
     uv tool install yamlfix
+
+docs:
+    bashly render :markdown_github .
+    rumdl fmt .
