@@ -75,3 +75,38 @@ dev-tools:
 docs:
     bashly render :markdown_github .
     rumdl fmt .
+
+# Tag a new release and push it to GitHub to trigger the release workflow
+tag VERSION:
+    #!/usr/bin/env bash
+    set -e
+
+    # Extract version from bashly.yml (e.g., 1.0.0)
+    # Using uvx to run yq on the fly
+    # RAW_VERSION=$(uvx yq '.version' src/bashly.yml)
+    RAW_VERSION=$(./maid.sh --version)
+
+    # Standardize to vX.Y.Z format
+    if [[ "$RAW_VERSION" == v* ]]; then
+        VERSION="$RAW_VERSION"
+    else
+        VERSION="v$RAW_VERSION"
+    fi
+
+    # Check if tag already exists
+    if git rev-parse "$VERSION" >/dev/null 2>&1; then
+        echo "❌ Error: Tag $VERSION already exists."
+        exit 1
+    fi
+
+    # Ensure the working directory is clean
+    if [ -n "$(git status --porcelain)" ]; then
+        echo "❌ Error: Working directory is not clean. Commit your changes first."
+        exit 1
+    fi
+
+    echo "Creating and pushing tag $VERSION..."
+    git tag "$VERSION"
+    git push origin "$VERSION"
+
+    echo "🚀 Tag $VERSION pushed! GitHub Actions will now build the release."
