@@ -92,7 +92,6 @@ sparkle() {
 
   # shellcheck disable=SC2059
   printf "✨ ${format}\n" "$@"
-  # printf "\n✨ %s\n" "$format" "$@"
 }
 
 bytes_to_human() {
@@ -372,12 +371,6 @@ if require_cmd softwareupdate; then
       sparkle "DO_UPDATES is false. Skipping install..."
     fi
   fi
-fi
-
-HYPERION_SCRIPT="./update_hyperion.sh"
-if [[ -x ${HYPERION_SCRIPT} ]]; then
-  sparkle "Upgrading Hyperion..."
-  "${HYPERION_SCRIPT}" --quiet || true
 fi
 
 # -----------------------------

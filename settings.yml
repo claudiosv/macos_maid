@@ -57,13 +57,13 @@ lib_dir: lib
 # bash functions. Any bash script found in any of these directories
 # (or sub-directories) will be merged into the final script.
 # Note that this is relative to the working directory.
-extra_lib_dirs:
-# The path to use for command files, relative to source_dir
+extra_lib_dirs: # The path to use for command files, relative to source_dir
+
 # When set to nil (~), command files will be placed directly under source_dir
 # When set to any other string, command files will be placed under this
 # directory, and each command will get its own sub-directory
-commands_dir:
-# The extension to use when reading/writing partial script snippets
+commands_dir: # The extension to use when reading/writing partial script snippets
+
 partials_extension: sh
 
 #-------------------------------------------------------------------------------
@@ -75,7 +75,7 @@ partials_extension: sh
 # strict: false  # Only exit on errors (set -e)
 # strict: ''         # Do not add any 'set' directive
 # strict: <string>  # Add any other custom 'set' directive
-strict: true
+strict: 'set -eo pipefail'
 
 # When true, the generated script will use tab indentation instead of spaces
 # (every 2 leading spaces will be converted to a tab character)
@@ -114,8 +114,8 @@ show_examples_on_error: false
 # When using private commands, flags, or environment variables, you may set
 # this option to a name of an environment variable that, if set, will reveal
 # all the private elements in the usage texts, as if they were public.
-private_reveal_key:
-# When enabling argfile for any command, this setting controls the name of the
+private_reveal_key: # When enabling argfile for any command, this setting controls the name of the
+
 # environment variable that can override or disable argfile loading at runtime.
 # Set the variable to `0`, `off`, `no` or `false` to disable argfile loading,
 # or to a different path to load another argfile instead.
@@ -131,15 +131,15 @@ usage_colors:
   arg:
   flag:
   environment_variable:
-#-------------------------------------------------------------------------------
-# FEATURE TOGGLES
-#-------------------------------------------------------------------------------
+    #-------------------------------------------------------------------------------
+    # FEATURE TOGGLES
+    #-------------------------------------------------------------------------------
 
-# Set to 'production' or 'development'.
-# Determines which features are enabled in the generated script.
-# Use the `enable_*` options below to adjust settings for each environment.
-# It is recommended to leave this set to 'development' and run
-# `bashly generate --env production` when the production version is needed.
+    # Set to 'production' or 'development'.
+    # Determines which features are enabled in the generated script.
+    # Use the `enable_*` options below to adjust settings for each environment.
+    # It is recommended to leave this set to 'development' and run
+    # `bashly generate --env production` when the production version is needed.
 env: development
 
 # Tweak the script output by enabling or disabling some script output.
@@ -178,8 +178,7 @@ var_aliases:
   args:
   other_args:
   deps:
-  env_var_names:
-# Choose different names for some of the internal functions.
+  env_var_names: # Choose different names for some of the internal functions.
 function_names:
   run:
   initialize:

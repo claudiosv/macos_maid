@@ -106,7 +106,6 @@ root_command() {
 
     # shellcheck disable=SC2059
     printf "✨ ${format}\n" "$@"
-    # printf "\n✨ %s\n" "$format" "$@"
   }
 
   bytes_to_human() {
@@ -386,12 +385,6 @@ root_command() {
         sparkle "DO_UPDATES is false. Skipping install..."
       fi
     fi
-  fi
-
-  HYPERION_SCRIPT="./update_hyperion.sh"
-  if [[ -x ${HYPERION_SCRIPT} ]]; then
-    sparkle "Upgrading Hyperion..."
-    "${HYPERION_SCRIPT}" --quiet || true
   fi
 
   # -----------------------------
@@ -1004,7 +997,7 @@ parse_requirements() {
 # :command.initialize
 initialize() {
   declare -g version="1.0.0"
-  set -euo pipefail
+  set -eo pipefail
 
 }
 
