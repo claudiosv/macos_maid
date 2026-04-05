@@ -4,7 +4,6 @@ printf "bash version 4.2 or higher is required\n" >&2
 exit 1
 fi
 root_command(){
-inspect_args
 if [[ ${ERR_EXIT-0} == "1" ]];then set -o errexit;fi
 if [[ ${PIPE_FAIL-0} == "1" ]];then set -o pipefail;fi
 if [[ ${TRACE-0} == "1" ]];then set -o xtrace;fi

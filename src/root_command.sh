@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-inspect_args
-
 # If env ERR_EXIT==1, script exits on failed command
 if [[ ${ERR_EXIT-0} == "1" ]]; then set -o errexit; fi
 
