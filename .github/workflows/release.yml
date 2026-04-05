@@ -16,15 +16,16 @@ jobs:
       contents: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3' # Bashly requires Ruby
+          ruby-version: '4.0.2' # Bashly requires Ruby
+          bundler-cache: true
       - name: Install Bashly
         run: gem install bashly
       - name: Set up Just
-        uses: extractions/setup-just@v2
+        uses: extractions/setup-just@v4
       - name: Build production script
         run: just production
       - name: Create Release and Upload Asset
@@ -33,3 +34,13 @@ jobs:
         with:
           files: maid.sh
           generate_release_notes: true
+          body: |
+            ## 🚀 Installation
+
+            To install or update **macOS Maid** (${{ github.ref_name }}), run the following command in your terminal:
+
+            ```bash
+            curl -fsSL [https://github.com/$](https://github.com/$){{ github.repository }}/releases/latest/download/maid.sh -o /usr/local/bin/maid && chmod +x /usr/local/bin/maid
+            ```
+
+            *Note: You may need to run this with `sudo` depending on your `/usr/local/bin` permissions.*
