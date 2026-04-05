@@ -77,7 +77,7 @@ docs:
     rumdl fmt .
 
 # Tag a new release and push it to GitHub to trigger the release workflow
-tag VERSION:
+tag VERSION: production
     #!/usr/bin/env bash
     set -e
 
