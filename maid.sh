@@ -646,7 +646,7 @@ esac
 done
 }
 initialize(){
-declare -g version="1.0.1"
+declare -g version="1.0.0"
 set -eo pipefail
 }
 run(){
