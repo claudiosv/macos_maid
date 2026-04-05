@@ -93,20 +93,30 @@ tag VERSION:
         VERSION="v$RAW_VERSION"
     fi
 
+    echo "Force-tagging and pushing $VERSION..."
+
+    # -f allows overwriting the local tag
+    git tag -f "$VERSION"
+
+    # -f is required to overwrite the tag on the remote (GitHub)
+    git push origin -f "$VERSION"
+
+    echo "🚀 Tag $VERSION overwritten! GitHub Actions will re-run the release."
+
     # Check if tag already exists
-    if git rev-parse "$VERSION" >/dev/null 2>&1; then
-        echo "❌ Error: Tag $VERSION already exists."
-        exit 1
-    fi
+    # if git rev-parse "$VERSION" >/dev/null 2>&1; then
+    #     echo "❌ Error: Tag $VERSION already exists."
+    #     exit 1
+    # fi
 
     # Ensure the working directory is clean
-    if [ -n "$(git status --porcelain)" ]; then
-        echo "❌ Error: Working directory is not clean. Commit your changes first."
-        exit 1
-    fi
+    # if [ -n "$(git status --porcelain)" ]; then
+    #     echo "❌ Error: Working directory is not clean. Commit your changes first."
+    #     exit 1
+    # fi
 
-    echo "Creating and pushing tag $VERSION..."
-    git tag "$VERSION"
-    git push origin "$VERSION"
+    # echo "Creating and pushing tag $VERSION..."
+    # git tag "$VERSION"
+    # git push origin "$VERSION"
 
-    echo "🚀 Tag $VERSION pushed! GitHub Actions will now build the release."
+    # echo "🚀 Tag $VERSION pushed! GitHub Actions will now build the release."

@@ -26,6 +26,8 @@ jobs:
         run: gem install bashly
       - name: Set up Just
         uses: extractions/setup-just@v4
+      - name: Set up shfmt
+        uses: mfinelli/setup-shfmt@v4
       - name: Build production script
         run: just production
       - name: Create Release and Upload Asset
