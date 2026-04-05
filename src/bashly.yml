@@ -1,0 +1,36 @@
+name: maid.sh
+help: macOS Maid - A Comprehensive Mac Cleanup Utility
+version: 1.0.0
+
+flags:
+- long: --no-updates
+  short: -u
+  help: Do not install macOS updates
+
+- long: --launchpad
+  short: -l
+  help: Clear Launchpad layout
+
+- long: --chrome
+  short: -c
+  help: Clear Chrome
+
+- long: --ios
+  short: -i
+  help: Clear iOS/iPadOS local backups
+
+- long: --mamba
+  short: -m
+  help: Update Mamba environments
+
+- long: --dry-run
+  short: -n
+  help: Dry-run (show what would be deleted without doing it)
+
+- long: --verbose
+  short: -v
+  help: Verbose output (prints executed commands and removed paths)
+
+- long: --log
+  short: -o
+  help: Log execution output
