@@ -77,7 +77,7 @@ docs:
     rumdl fmt .
 
 # Tag a new release and push it to GitHub to trigger the release workflow
-tag VERSION: production
+tag VERSION: production docs
     #!/usr/bin/env bash
     set -e
 
@@ -93,30 +93,15 @@ tag VERSION: production
         VERSION="v$RAW_VERSION"
     fi
 
+    git add .
+    git commit -s -m "Version $VERSION"
+
     echo "Force-tagging and pushing $VERSION..."
 
     # -f allows overwriting the local tag
-    git tag -f "$VERSION"
+    git tag -s -f "$VERSION" -m "Release $VERSION"
 
     # -f is required to overwrite the tag on the remote (GitHub)
     git push origin -f "$VERSION"
 
     echo "🚀 Tag $VERSION overwritten! GitHub Actions will re-run the release."
-
-    # Check if tag already exists
-    # if git rev-parse "$VERSION" >/dev/null 2>&1; then
-    #     echo "❌ Error: Tag $VERSION already exists."
-    #     exit 1
-    # fi
-
-    # Ensure the working directory is clean
-    # if [ -n "$(git status --porcelain)" ]; then
-    #     echo "❌ Error: Working directory is not clean. Commit your changes first."
-    #     exit 1
-    # fi
-
-    # echo "Creating and pushing tag $VERSION..."
-    # git tag "$VERSION"
-    # git push origin "$VERSION"
-
-    # echo "🚀 Tag $VERSION pushed! GitHub Actions will now build the release."

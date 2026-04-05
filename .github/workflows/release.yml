@@ -42,7 +42,5 @@ jobs:
             To install or update **macOS Maid** (${{ github.ref_name }}), run the following command in your terminal:
 
             ```bash
-            curl -fsSL [https://github.com/$](https://github.com/${{ github.repository }}/releases/${{ github.ref_name }}/download/maid.sh -o /usr/local/bin/maid && chmod +x /usr/local/bin/maid
+            curl -fsSL https://github.com/${{ github.repository }}/releases/${{ github.ref_name }}/download/maid.sh -o ./maid.sh && chmod +x /maid.sh
             ```
-
-            *Note: You may need to run this with `sudo` depending on your `/usr/local/bin` permissions.*
