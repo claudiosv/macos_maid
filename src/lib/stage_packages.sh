@@ -73,6 +73,22 @@ stage_mamba() {
   mamba clean -yq --all >/dev/null 2>&1 || true
 }
 
+# Crates still installed by plain `cargo install` (cargo-binstall does not track them): suggest moving them.
+suggest_binstall() {
+  require_cmd cargo-binstall && require_cmd jq || return 0
+  local home="${CARGO_HOME:-$HOME/.cargo}" crate
+  local -a todo=()
+  [[ -f "$home/.crates2.json" ]] || return 0
+  # crates-v1.json is one JSON object per line; git-sourced crates are left alone
+  while IFS= read -r crate; do
+    [[ -n $crate && $crate != cargo-binstall ]] && todo+=("$crate")
+  done < <(jq -r '.installs | keys[] | select(contains("(registry+")) | split(" ")[0]' "$home/.crates2.json" |
+    grep -vxFf <(jq -r '.name' "$home/binstall/crates-v1.json" 2>/dev/null) || true)
+  ((${#todo[@]} > 0)) || return 0
+  step "Installed with cargo install; cargo-binstall can fetch prebuilt binaries instead:"
+  for crate in "${todo[@]}"; do printf '  cargo uninstall %s && cargo binstall --no-confirm %s\n' "$crate" "$crate"; done
+}
+
 stage_language_packages() {
   if require_cmd pnpm; then
     step "Updating global pnpm packages & clearing cache..."
@@ -100,6 +116,8 @@ stage_language_packages() {
       run_cmd --show cargo install-update -a
     fi
   fi
+
+  suggest_binstall
 
   if require_cmd gem; then
     step "Updating Ruby gems..."

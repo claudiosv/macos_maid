@@ -87,3 +87,18 @@ maid() { bash "$ROOT/maid.sh" "$@" 3>&-; }
   grep -q '^cargo binstall --no-confirm ripgrep$' "$CALLS"
   ! grep -q '^cargo install-update -a' "$CALLS"
 }
+
+@test "crates installed by cargo install get a binstall suggestion" {
+  command -v jq >/dev/null || skip "jq not installed"
+  ln -s "$STUB/go" "$STUB/cargo-binstall"
+  # jq and grep are not stubbed; expose them next to the stubs
+  for t in jq grep; do ln -s "$(command -v $t)" "$STUB/$t"; done
+  mkdir -p "$HOME/.cargo/binstall"
+  echo '{"installs":{"ripgrep 1.0.0 (registry+https://x)":{},"fd 1.0.0 (registry+https://x)":{},"gitty 1.0.0 (git+https://x#abc)":{}}}' >"$HOME/.cargo/.crates2.json"
+  echo '{"name":"fd"}' >"$HOME/.cargo/binstall/crates-v1.json"
+  run maid
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"cargo uninstall ripgrep && cargo binstall --no-confirm ripgrep"* ]]
+  [[ "$output" != *"uninstall fd"* ]]
+  [[ "$output" != *"gitty"* ]]
+}
