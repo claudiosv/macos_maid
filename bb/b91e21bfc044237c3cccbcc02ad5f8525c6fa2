@@ -1,0 +1,89 @@
+src/lib/UPSTREAM.md
+  s_77f62c9a5dc240::t_5e33ac236bb685 1-8
+src/lib/stage_cleanup.sh
+  s_77f62c9a5dc240::t_9d24fe2d818f74 1-37,39-43,45-47,49-57,59-63
+  s_77f62c9a5dc240::t_a06553d4a321c9 38,44,48,58
+README.md
+  s_77f62c9a5dc240::t_efed2169924b9d 15-24,37-41
+package.sh
+  s_77f62c9a5dc240::t_db51624cb70ffe 1-20
+justfile
+  s_77f62c9a5dc240::t_971a92b918e4b2 1-102
+src/lib/colors.sh
+  s_77f62c9a5dc240::t_8ce1c9a226a737 1-63
+.github/workflows/release.yml
+  s_77f62c9a5dc240::t_db51624cb70ffe 1-2,4,6,8-15,17-18,20-22,26,28,30-44
+src/lib/clack.sh
+  s_77f62c9a5dc240::t_5e33ac236bb685 1-3358
+src/lib/util.sh
+  s_77f62c9a5dc240::t_a06553d4a321c9 17-19,21-22,47,49
+  s_77f62c9a5dc240::t_508f07e9b201ae 13
+  s_77f62c9a5dc240::t_8618b20a35a1c7 1-12,14-16,20,23-46,48,50-51
+src/lib/stage_updates.sh
+  s_77f62c9a5dc240::t_a06553d4a321c9 11,13,15,21,32,40,44,51,73
+  s_77f62c9a5dc240::t_e871db9cfdc542 1-10,12,14,16-20,22-31,33-39,41-43,45-50,52-72,74-76
+.pre-commit-config.yaml
+  s_77f62c9a5dc240::t_5e33ac236bb685 1-21
+src/bashly.yml
+  s_77f62c9a5dc240::t_efed2169924b9d 6-32,34-35
+  s_77f62c9a5dc240::t_9d24fe2d818f74 33
+.gitignore
+  s_77f62c9a5dc240::t_db51624cb70ffe 1-11
+.github/actions/setup-bashly/action.yml
+  s_77f62c9a5dc240::t_5e33ac236bb685 1-19
+src/lib/ui.sh
+  s_77f62c9a5dc240::t_a06553d4a321c9 8-9,14
+  s_77f62c9a5dc240::t_8618b20a35a1c7 1-7,10-13
+src/initialize.sh
+  s_77f62c9a5dc240::t_a06553d4a321c9 19
+  s_77f62c9a5dc240::t_8618b20a35a1c7 1-14,17-18
+  s_77f62c9a5dc240::t_8ce1c9a226a737 15-16
+.github/workflows/ci.yml
+  s_77f62c9a5dc240::t_db51624cb70ffe 5
+  s_77f62c9a5dc240::t_5e33ac236bb685 1-4,6-53
+src/lib/stage_packages.sh
+  s_77f62c9a5dc240::t_fa21ad65a81d97 97-98
+  s_77f62c9a5dc240::t_9d24fe2d818f74 1-6,8,11,14-18,20-46,48-54,56-64,66,69-96,99-101
+  s_77f62c9a5dc240::t_a06553d4a321c9 7,9-10,12-13,19,47,55,65,67-68
+src/root_command.sh
+  s_77f62c9a5dc240::t_9d24fe2d818f74 1,5-7,32-33,35-36,38,40-50,53,55
+  s_77f62c9a5dc240::t_6ced1a36b0ab3d 19-27
+  s_77f62c9a5dc240::t_a06553d4a321c9 52,56-57
+.editorconfig
+  s_77f62c9a5dc240::t_5e33ac236bb685 1-8
+src/lib/exec.sh
+  s_77f62c9a5dc240::t_8618b20a35a1c7 1-7,9,11-18,20,22-47,50-53,56-61,64-68,70-75
+  s_77f62c9a5dc240::t_a06553d4a321c9 8,10,19,21,48-49,54-55,62-63,69
+src/lib/apps.sh
+  s_77f62c9a5dc240::t_e871db9cfdc542 1-5,8-12,15,17,19-27,29-31,35,37-60,62,65-67,69-72,74-84,86,88-106,109-113,115-120,122-125,130-133,135,137-146,148-153,155-176,178,181,183-190
+  s_77f62c9a5dc240::t_a06553d4a321c9 6-7,13-14,16,18,28,32-34,36,61,63-64,68,73,85,87,107-108,114,121,126-129,134,136,147,154,177,179-180,182
+settings.yml
+  s_77f62c9a5dc240::t_8ce1c9a226a737 2,4-8
+tests/maid.bats
+  s_77f62c9a5dc240::t_6d4f5b82e885f2 1-10,12-28,31-65
+  s_77f62c9a5dc240::t_d8e009da765eb5 29-30
+  s_77f62c9a5dc240::t_302e90be01f2cc 11
+sudo-touchid.rb
+  s_77f62c9a5dc240::t_6291ac29922958 1-34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "bbb91e21bfc044237c3cccbcc02ad5f8525c6fa2",
+  "prompts": {},
+  "humans": {
+    "h_aceaeb4e74d6dc": {
+      "author": "Claudio Spiess <claudiosv@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_77f62c9a5dc240": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "75332ced-3a35-4969-933b-d52c969b6099",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Claudio Spiess <claudiosv@users.noreply.github.com>"
+    }
+  }
+}
