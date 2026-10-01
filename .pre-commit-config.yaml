@@ -1,0 +1,21 @@
+repos:
+  - repo: local
+    hooks:
+      - id: shfmt
+        name: shfmt
+        entry: shfmt -d
+        language: system
+        files: ^src/.*\.sh$
+        exclude: ^src/lib/clack\.sh$
+      - id: shellharden
+        name: shellharden
+        entry: shellharden --check
+        language: system
+        files: ^src/.*\.sh$
+        exclude: ^src/lib/clack\.sh$
+      - id: shellcheck
+        name: shellcheck (built maid.sh)
+        entry: bash -c 'bashly generate >/dev/null && shellcheck -S warning -e SC2034,SC2206 maid.sh'
+        language: system
+        files: ^src/.*\.sh$
+        pass_filenames: false

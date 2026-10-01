@@ -1,46 +1,44 @@
----
-name: Production Build & Release
-on:
-  # Triggers the workflow when a version tag is pushed (e.g., git tag v1.0.0 && git push origin v1.0.0)
-  push:
-    tags:
-      - v*
-  # Allows you to trigger the workflow manually from the GitHub Actions tab
-  workflow_dispatch:
-jobs:
-  build-and-release:
-    runs-on: ubuntu-latest
+name: release
 
-    # Required permission to create a release in the repository
+on:
+  # Explicit releases only: `just release` / `just tag` pushes a v* tag.
+  push:
+    tags: [v*]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  check:
+    uses: ./.github/workflows/ci.yml
+
+  release:
+    needs: check
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '4.0.2' # Bashly requires Ruby
-          bundler-cache: true
-      - name: Install Bashly
-        run: gem install bashly
-      - name: Set up Just
-        uses: extractions/setup-just@v4
-      - name: Set up shfmt
-        uses: mfinelli/setup-shfmt@v4
-      - name: Build production script
-        run: just production
-      - name: Create Release and Upload Asset
-        uses: softprops/action-gh-release@v2
+      - uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup-bashly
+
+      - name: Build
+        run: |
+          bashly generate
+          chmod +x maid.sh
+          sha256sum maid.sh > maid.sh.sha256
+
+      - name: Publish release
         if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: maid.sh
-          generate_release_notes: true
-          body: |
-            ## 🚀 Installation
-
-            To install or update **macOS Maid** (${{ github.ref_name }}), run the following command in your terminal:
-
-            ```bash
-            curl -fsSL https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/maid.sh -o ./maid.sh && chmod +x ./maid.sh
-            ```
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" maid.sh maid.sh.sha256 \
+            --title "maid $GITHUB_REF_NAME" \
+            --generate-notes \
+            --notes "$(printf 'Install or update:\n\n```bash\ncurl -fsSL https://github.com/%s/releases/download/%s/maid.sh -o ./maid.sh && chmod +x ./maid.sh\n```\n' "$GITHUB_REPOSITORY" "$GITHUB_REF_NAME")"

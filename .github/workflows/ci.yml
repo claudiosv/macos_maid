@@ -1,0 +1,53 @@
+name: ci
+
+on:
+  push:
+    branches: ["**"] # tags are checked by release.yml, which calls this workflow
+  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
+
+env:
+  SHELLHARDEN_VERSION: 4.3.2
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: extractions/setup-just@v4
+
+      - uses: ./.github/actions/setup-bashly
+
+      - name: Install apt packages (cached)
+        uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
+          packages: shellcheck shfmt bats fd-find ugrep
+          version: 1
+
+      - run: sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
+
+      - name: Cache shellharden
+        id: shellharden
+        uses: actions/cache@v6
+        with:
+          path: ~/.cargo/bin/shellharden
+          key: shellharden-${{ runner.os }}-${{ env.SHELLHARDEN_VERSION }}
+
+      - uses: cargo-bins/cargo-binstall@main
+        if: steps.shellharden.outputs.cache-hit != 'true'
+
+      - name: Install shellharden (prebuilt via cargo-binstall)
+        if: steps.shellharden.outputs.cache-hit != 'true'
+        run: cargo binstall --no-confirm --locked "shellharden@${SHELLHARDEN_VERSION}"
+
+      - run: echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+
+      - name: shfmt, shellharden, shellcheck
+        run: just lint
+
+      - name: bats
+        run: just test

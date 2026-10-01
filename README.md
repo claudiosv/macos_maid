@@ -12,6 +12,16 @@ macOS Maid - A Comprehensive Mac Cleanup Utility
 maid.sh [OPTIONS]
 ```
 
+## Examples
+
+```bash
+maid.sh --dry-run --verbose
+```
+
+```bash
+maid.sh --chrome --electron
+```
+
 ## Options
 
 ### *--no-updates, -u*
@@ -24,7 +34,11 @@ Clear Launchpad layout
 
 #### *--chrome, -c*
 
-Clear Chrome
+Clear Chrome and Safari
+
+#### *--electron, -e*
+
+Clear caches of Electron/Chromium apps
 
 #### *--ios, -i*
 

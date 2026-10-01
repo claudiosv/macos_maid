@@ -1,1 +1,11 @@
 .rumdl_cache
+.DS_Store
+maid.ab
+
+# vendored upstream checkout; src/lib/clack.sh is the pinned copy
+clack-bash-master/
+
+# build output (just build / bashly generate); published via releases
+/maid.sh
+/maid.sh.sha256
+/bin/
