@@ -62,14 +62,9 @@ check: lint test
 hooks:
     prek install
 
-# Regenerate README.md from bashly.yml.
-docs:
-    bashly render :markdown_github .
-    rumdl fmt .
-
 # --- Releases are explicit: nothing is published unless you run bump/tag/release. ---
 
-# Set the version in src/bashly.yml (major|minor|patch|X.Y.Z), refresh docs, commit.
+# Set the version in src/bashly.yml (major|minor|patch|X.Y.Z), commit.
 bump part="patch":
     #!/usr/bin/env bash
     set -euo pipefail
@@ -83,8 +78,7 @@ bump part="patch":
       *) echo "usage: just bump major|minor|patch|X.Y.Z" >&2; exit 1 ;;
     esac
     gsed -i "s/^version: .*/version: ${new}/" src/bashly.yml
-    just docs
-    git add src/bashly.yml README.md
+    git add src/bashly.yml
     git commit -s -m "Version v${new}"
     echo "bumped ${cur} -> ${new}"
 
