@@ -8,7 +8,7 @@ setup() {
   mkdir -p "$STUB" "$BATS_TEST_TMPDIR/home"
   ln -s "$BASH" "$STUB/bash"
   for c in sudo softwareupdate brew killall defaults qlmanage atsutil tmutil \
-    dscacheutil rm zsh osascript gem pnpm uv python3 go docker podman mamba tlmgr sleep; do
+    dscacheutil rm zsh osascript gem pnpm uv python3 go docker podman rustup cargo cargo-install-update mamba tlmgr sleep; do
     cat >"$STUB/$c" <<'STUB_EOF'
 #!/usr/bin/env bash
 echo "$(basename "$0") $*" >>"$(dirname "$0")/calls"
@@ -70,4 +70,11 @@ maid() { bash "$ROOT/maid.sh" "$@" 3>&-; }
   grep -q '^docker system prune -f' "$CALLS"
   grep -q '^podman system prune -f' "$CALLS"
   grep -q '^podman volume prune -f' "$CALLS"
+}
+
+@test "rust toolchains and cargo binaries are updated" {
+  run maid
+  [ "$status" -eq 0 ]
+  grep -q '^rustup update' "$CALLS"
+  grep -q '^cargo install-update -a' "$CALLS"
 }

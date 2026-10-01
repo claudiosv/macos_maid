@@ -49,7 +49,10 @@ macOS, bash 4.2 or newer (the stock `/bin/bash` is too old, so install a newer o
 | `brew` | Homebrew update, upgrade and cleanup |
 | `tlmgr` | TeX Live updates |
 | `mamba` | base environment update, `--mamba` for the rest |
-| `pnpm`, `gem`, `uv`, `python3`, `cargo-cache`, `go` | language package updates and cache cleaning |
+| `pnpm`, `gem`, `uv`, `python3`, `go` | language package updates and cache cleaning |
+| `rustup` | Rust toolchain update |
+| `cargo-install-update` ([cargo-update](https://crates.io/crates/cargo-update)) | update of `cargo install`ed binaries |
+| `cargo-cache` | cargo cache cleaning |
 | `docker`, `podman` | prune, only when the daemon or machine is running |
 | `zsh` with `zimfw` | Zim upgrade |
 | `fd`, `jq` | used when present, with `find` and `awk` fallbacks |
@@ -90,7 +93,7 @@ Stages run in this order:
 3. **Shell tools:** removes the quarantine flag from Codex's computer-use helper and upgrades Zim.
 4. **TeX Live:** `tlmgr update` for the system and user trees, then `texhash`.
 5. **Mamba:** updates `base`, optionally all environments (`--mamba`, minus `MAMBA_SKIP_ENVS`), then cleans its caches.
-6. **Language packages:** updates pnpm, gems, uv tools and Python, then purges the pip, cargo, Go module and gem caches.
+6. **Language packages:** updates pnpm, Rust toolchains, cargo binaries, gems, uv tools and Python, then purges the pip, cargo, Go module and gem caches.
 7. **Purge:** empties the Trash, clears system and user logs, QuickLook and font caches, and thins Time Machine local snapshots.
 8. **Dev cleanup:** prunes Docker and Podman and clears Xcode DerivedData, Archives and simulator caches.
 9. **Browsers:** with `--chrome`, clears Chrome (all profiles) and Safari. With `--electron`, clears caches of every Electron/Chromium app found in Application Support. Running apps are quit first and relaunched afterwards.

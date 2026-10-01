@@ -81,6 +81,17 @@ stage_language_packages() {
     run_cmd pnpm store prune
   fi
 
+  if require_cmd rustup; then
+    step "Updating Rust toolchains..."
+    run_cmd --show rustup update
+  fi
+
+  # cargo-update is a third-party subcommand: `cargo install cargo-update`
+  if require_cmd cargo-install-update; then
+    step "Updating cargo-installed binaries..."
+    run_cmd --show cargo install-update -a
+  fi
+
   if require_cmd gem; then
     step "Updating Ruby gems..."
     run_cmd --show gem update
