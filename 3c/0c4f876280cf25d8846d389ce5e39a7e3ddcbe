@@ -1,0 +1,16 @@
+README.md
+  h_aceaeb4e74d6dc 7
+src/bashly.yml
+  h_aceaeb4e74d6dc 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "3c0c4f876280cf25d8846d389ce5e39a7e3ddcbe",
+  "prompts": {},
+  "humans": {
+    "h_aceaeb4e74d6dc": {
+      "author": "Claudio Spiess <claudiosv@users.noreply.github.com>"
+    }
+  }
+}
