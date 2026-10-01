@@ -46,6 +46,11 @@ jobs:
 
       - run: echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
 
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Install rumdl
+        run: uv tool install rumdl
+
       - name: shfmt, shellharden, shellcheck
         run: just lint
 
