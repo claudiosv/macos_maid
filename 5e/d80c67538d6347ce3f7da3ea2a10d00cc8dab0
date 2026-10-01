@@ -1,0 +1,29 @@
+src/lib/stage_cleanup.sh
+  s_c09d25b8294d1b::t_2e93de2c8aa1fe 24-32
+README.md
+  s_c09d25b8294d1b::t_2e93de2c8aa1fe 53,95
+tests/maid.bats
+  s_c09d25b8294d1b::t_2e93de2c8aa1fe 11
+  s_c09d25b8294d1b::t_d63c695dd3297c 66-73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5ed80c67538d6347ce3f7da3ea2a10d00cc8dab0",
+  "prompts": {},
+  "humans": {
+    "h_aceaeb4e74d6dc": {
+      "author": "Claudio Spiess <claudiosv@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_c09d25b8294d1b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4c470462-1f20-4b3d-b572-0f009e897f32",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Claudio Spiess <claudiosv@users.noreply.github.com>"
+    }
+  }
+}
