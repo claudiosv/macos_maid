@@ -78,3 +78,12 @@ maid() { bash "$ROOT/maid.sh" "$@" 3>&-; }
   grep -q '^rustup update' "$CALLS"
   grep -q '^cargo install-update -a' "$CALLS"
 }
+
+@test "cargo binstall upgrades outdated binaries" {
+  ln -s "$STUB/go" "$STUB/cargo-binstall"
+  printf '#!/usr/bin/env bash\necho "cargo $*" >>"$(dirname "$0")/calls"\n[[ "$*" == *-l* ]] && printf "Package Installed Latest Needs update\\nripgrep v1 v2 Yes\\nfd v3 v3 No\\n"\nexit 0\n' >"$STUB/cargo"
+  run maid
+  [ "$status" -eq 0 ]
+  grep -q '^cargo binstall --no-confirm ripgrep$' "$CALLS"
+  ! grep -q '^cargo install-update -a' "$CALLS"
+}

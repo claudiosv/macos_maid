@@ -51,7 +51,7 @@ macOS, bash 4.2 or newer (the stock `/bin/bash` is too old, so install a newer o
 | `mamba` | base environment update, `--mamba` for the rest |
 | `pnpm`, `gem`, `uv`, `python3`, `go` | language package updates and cache cleaning |
 | `rustup` | Rust toolchain update |
-| `cargo-install-update` ([cargo-update](https://crates.io/crates/cargo-update)) | update of `cargo install`ed binaries |
+| `cargo-install-update` ([cargo-update](https://crates.io/crates/cargo-update)) | update of `cargo install`ed binaries; with `cargo-binstall` present, outdated ones are upgraded through it |
 | `cargo-cache` | cargo cache cleaning |
 | `docker`, `podman` | prune, only when the daemon or machine is running |
 | `zsh` with `zimfw` | Zim upgrade |

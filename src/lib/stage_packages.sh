@@ -86,10 +86,19 @@ stage_language_packages() {
     run_cmd --show rustup update
   fi
 
-  # cargo-update is a third-party subcommand: `cargo install cargo-update`
+  # cargo-update is a third-party subcommand: `cargo install cargo-update`.
+  # Binaries installed with cargo-binstall are upgraded through binstall (prebuilt), the rest are rebuilt.
   if require_cmd cargo-install-update; then
     step "Updating cargo-installed binaries..."
-    run_cmd --show cargo install-update -a
+    if require_cmd cargo-binstall; then
+      local -a stale=()
+      mapfile -t stale < <(cargo install-update -l 2>/dev/null | awk '$NF == "Yes" {print $1}' || true)
+      if ((${#stale[@]} > 0)); then
+        run_cmd --show cargo binstall --no-confirm "${stale[@]}"
+      fi
+    else
+      run_cmd --show cargo install-update -a
+    fi
   fi
 
   if require_cmd gem; then
