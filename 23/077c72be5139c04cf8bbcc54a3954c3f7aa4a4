@@ -1,0 +1,28 @@
+src/lib/stage_packages.sh
+  s_c09d25b8294d1b::t_b735c8bbf46b48 89-90,93-101
+README.md
+  s_c09d25b8294d1b::t_ef56c648ac1ac7 54
+tests/maid.bats
+  s_c09d25b8294d1b::t_86945076c4a23e 81-89
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "23077c72be5139c04cf8bbcc54a3954c3f7aa4a4",
+  "prompts": {},
+  "humans": {
+    "h_aceaeb4e74d6dc": {
+      "author": "Claudio Spiess <claudiosv@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_c09d25b8294d1b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4c470462-1f20-4b3d-b572-0f009e897f32",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Claudio Spiess <claudiosv@users.noreply.github.com>"
+    }
+  }
+}
