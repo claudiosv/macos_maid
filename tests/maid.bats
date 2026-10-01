@@ -8,7 +8,7 @@ setup() {
   mkdir -p "$STUB" "$BATS_TEST_TMPDIR/home"
   ln -s "$BASH" "$STUB/bash"
   for c in sudo softwareupdate brew killall defaults qlmanage atsutil tmutil \
-    dscacheutil rm zsh osascript gem pnpm uv python3 go docker mamba tlmgr sleep; do
+    dscacheutil rm zsh osascript gem pnpm uv python3 go docker podman mamba tlmgr sleep; do
     cat >"$STUB/$c" <<'STUB_EOF'
 #!/usr/bin/env bash
 echo "$(basename "$0") $*" >>"$(dirname "$0")/calls"
@@ -62,4 +62,12 @@ maid() { bash "$ROOT/maid.sh" "$@" 3>&-; }
   [ "$status" -eq 0 ]
   grep -q '^rm ' "$CALLS"
   grep -q '^dscacheutil -flushcache' "$CALLS"
+}
+
+@test "docker and podman are pruned when running" {
+  run maid
+  [ "$status" -eq 0 ]
+  grep -q '^docker system prune -f' "$CALLS"
+  grep -q '^podman system prune -f' "$CALLS"
+  grep -q '^podman volume prune -f' "$CALLS"
 }

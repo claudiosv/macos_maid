@@ -21,12 +21,15 @@ stage_purge() {
 }
 
 stage_dev_cleanup() {
-  if require_cmd docker && docker info >/dev/null 2>&1; then
-    step "Docker is running. Pruning system & volumes..."
-    run_cmd docker system prune -f
-    run_cmd docker builder prune -f
-    run_cmd docker volume prune -f
-  fi
+  local engine
+  for engine in docker podman; do
+    if require_cmd "$engine" && "$engine" info >/dev/null 2>&1; then
+      step "%s is running. Pruning system & volumes..." "$engine"
+      run_cmd "$engine" system prune -f
+      run_cmd "$engine" builder prune -f
+      run_cmd "$engine" volume prune -f
+    fi
+  done
 
   step "Clearing Xcode Derived Data & Archives..."
   safe_rm "${HOME}/Library/Developer/Xcode/DerivedData/"*
